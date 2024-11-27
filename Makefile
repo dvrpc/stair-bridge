@@ -5,7 +5,7 @@ PGUSER ?= postgres
 PGDATABASE ?= $(PG_DB)
 SCHEMA = stairs
 PORT ?= 5555
-GEOPKG ?= /mnt/u/FY2025/MobilityAnalysisDesign/Ped_Bridges_Study/qgis/count_locations.gpkg
+GEOPKG ?= /mnt/u/FY2025/MobilityAnalysisDesign/Ped_Bridges_Study/qgis/count_locations_reproj.gpkg
 psql = psql $(PSQLFLAGS)
 
 SCHEMA = ped_stair_bridge
