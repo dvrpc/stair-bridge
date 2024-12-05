@@ -7,3 +7,10 @@ This folder contains the most updated r code of raw data cleaning and preliminar
 
 ## R code files
 - sample-data-for-models-tests.r :cleaning the raw data to Philly only and aggregating to daily sums. 
+- idw-base-code.r : a preliminary simple network-based IDW code I tested early on
+- slm.r : the most updated SLM (spatial lag model) code I tested
+
+## Other notes
+- The network-based IDW, the SLM, and negative-binomial regression models are worth exploring and comparing.
+- With the IDW, it is best to add a step restricting the radius of sample points per point (in other words, not sampling the entire data but points within X miles from the estimated location).
+- I did not run the SLM model with all the additional independent variables because converting the polygons to points was too time-consuming; however, it was worth exploring all and adding more relevant ones, spatial and non-spatial (weather, for example). 
