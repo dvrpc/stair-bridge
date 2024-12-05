@@ -9,6 +9,7 @@ This folder contains the most updated r code of raw data cleaning and preliminar
 - sample-data-for-models-tests.r :cleaning the raw data to Philly only and aggregating to daily sums. 
 - idw-base-code.r : a preliminary simple network-based IDW code I tested early on
 - slm.r : the most updated SLM (spatial lag model) code I tested
+- selecting-best-k-for-model.r : part of an old code (GWR model-based) to show the steps of optimizing K neighborhoods. It will not run as is because it is missing the model code, only to review steps.
 
 ## Other notes
 - The network-based IDW, the SLM, and negative-binomial regression models are worth exploring and comparing.
