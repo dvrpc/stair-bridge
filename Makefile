@@ -6,7 +6,6 @@ PGDATABASE ?= $(PG_DB)
 PORT ?= 5555
 GEOPKG ?= /mnt/u/FY2025/MobilityAnalysisDesign/Ped_Bridges_Study/qgis/count_locations_reproj.gpkg
 psql = psql $(PSQLFLAGS)
-
 SCHEMA = ped_stair_bridge
 
 
@@ -18,5 +17,7 @@ load:;
 setup:; $(psql) -U $(PGUSER) -p $(PORT) -d $(DB) -v schema=$(SCHEMA) -f sql/setup.sql
 
 detours:; $(psql) -U $(PGUSER) -p $(PORT) -d $(DB) -v schema=$(SCHEMA) -f sql/detours.sql 
+
+walksheds:; $(psql) -U $(PGUSER) -p $(PORT) -d $(DB) -v schema=$(SCHEMA) -f sql/walksheds.sql 
 
 clean:; $(psql) -U $(PGUSER) -p $(PORT) -d $(DB) -c "DROP SCHEMA $(SCHEMA) CASCADE"

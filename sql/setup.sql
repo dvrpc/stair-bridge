@@ -22,3 +22,5 @@ create or replace view sidewalk_nodes as
 update pedestriannetwork_lines set length_m = st_length(st_transform(geom,26918));
 alter table pedestriannetwork_lines add column if not exists traveltime_min double precision;
 update pedestriannetwork_lines set traveltime_min = length_m  / 4820.0 * 60; -- 4.82 kms per hr, about 3 mph. walking speed.")
+
+create index on pedestriannetwork_lines (fid);
