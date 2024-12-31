@@ -3,9 +3,14 @@ set search_path to :schema, public;
 -- adjust this for walk time. 15 = 15 minutes walking at speed set in setup.sql
 \set WALKTIME 15 
 
-----------------------------------------------------------
+-------------------------------------------------------------------------------------
 --- Walkshed Creation 
-----------------------------------------------------------
+---   Right now, this query creates an isochrone table, and a isoshells/hulls table.
+---   The isochrone is created by grabbing the nearest sidewalk node to the centroid
+---   and generating a WALKTIME-minute isochrone from that point.
+---   TODO: update this to run isochrone on both ends of link rather than nearest
+---   node to centroid. Result would be isochrone a, isochrone b for each link.
+-------------------------------------------------------------------------------------
 
 drop table if exists isochrones;
 create table isochrones as

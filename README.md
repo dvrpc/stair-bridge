@@ -13,28 +13,30 @@ You will need:
 - PostgreSQL
 - PostGIS
 - PGRouting
-- ogr2ogr/gdaltools (optional but helpful)
+- ogr2ogr
 
-Create a database called 'staircase' (or whatever you prefer) and enable PostGIS and PGRouting. 
+Create a database called 'staircase' (or whatever you prefer).
 
-You need to be behind the DVRPC firewall to access project folders. 
+Create a .env file and fill in the following details. If you're on a Unix (Linux/Mac) system, keep the Geopackage paths.
+If you're on Windows, change the paths to Windows format (e.g., 'U:\This\is\a\Windows\Path' )  
 
-Use ogr2ogr (or whatever means you prefer) to move the following geopackage into Postgres. 
-
-```shell 
-ogr2ogr -f PostgreSQL PG:"dbname=staircase port=5555 user=postgres" /mnt/u/FY2025/MobilityAnalysisDesign/Ped_Bridges_Study/qgis/count_locations.gpkg
+```
+DB=staircase
+PGUSER=
+PORT=
+GEOPKG='/mnt/u/FY2025/MobilityAnalysisDesign/Ped_Bridges_Study/qgis/count_locations_reproj.gpkg'
+SCHEMA=
+UDRIVE_OUTPUT_GPKG='/mnt/u/FY2025/MobilityAnalysisDesign/Ped_Bridges_Study/project_output/outputs.gpkg'
 ```
 
-This contains:
-- a copy of DVRPC's sidewalk network for Philadelphia, with some edits made for topology's sake (pedestrian_network_lines table) 
-- locations that are being counted for the project (locations table)
-- count locations around CLOSED bridges or staircases (closed table)
+You need to be behind the DVRPC firewall to access project folders and run these scripts.
 
-## Usage
+The Makefile at the root of this repo contains all commands. 
 
+Simply run `make all` from the root to import the data, create the walksheds and detours, and produce a Geopackage for later use.
+Geopackage works in both QGIS and ArcPro.
 
-
-
+You can tweak variables if needed, for example, tweak 'WALKTIME' in sql/walksheds.sql to change walktime from 15-minutes to some other number.
 
 
 ## License
