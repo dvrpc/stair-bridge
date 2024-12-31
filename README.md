@@ -20,6 +20,8 @@ Create a database called 'staircase' (or whatever you prefer).
 Create a .env file and fill in the following details. If you're on a Unix (Linux/Mac) system, keep the Geopackage paths.
 If you're on Windows, change the paths to Windows format (e.g., 'U:\This\is\a\Windows\Path' )  
 
+It's not recommended to use 'public' as your schema here. 
+
 ```
 DB=staircase
 PGUSER=
@@ -38,6 +40,11 @@ Geopackage works in both QGIS and ArcPro.
 
 You can tweak variables if needed, for example, tweak 'WALKTIME' in sql/walksheds.sql to change walktime from 15-minutes to some other number.
 
+## Regression Analysis
+The 'ilil-r-files' folder contains Ilil's scripts for the regression analysis.
+The Makefile does not include these scripts, though it could if needed. 
+
+The purpose of the regression analysis is to give the City estimates for pedestrian volumes at closed locations.
 
 ## License
 
