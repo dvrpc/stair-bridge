@@ -1,5 +1,8 @@
 set search_path to :schema, public;
 
+-- adjust this for walk time. 15 = 15 minutes walking at speed set in setup.sql
+\set WALKTIME 15 
+
 ----------------------------------------------------------
 --- Walkshed Creation 
 ----------------------------------------------------------
@@ -18,31 +21,33 @@ with walk_time as (
         st_dwithin(
             st_transform(st_centroid(a.geom), 26918),
             st_transform(b.geom, 26918),
-            50) 
+            100) 
     group by a.fid
 )
 select 
-    wt.node_id,
+    wt.link_id,
     st_collect(pedestriannetwork_lines.geom) AS isochrone_geom
 from 
     walk_time wt,
     lateral pgr_drivingDistance(
         'select fid as id, source, target, traveltime_min as cost from pedestriannetwork_lines', 
         wt.node_id,                 
-        15,
+        :'WALKTIME',
         false                       
     ) as dr
 join 
     pedestriannetwork_lines
 on 
     dr.edge = pedestriannetwork_lines.fid
-group by wt.node_id;
+group by wt.link_id;
 
 
 drop table if exists isoshells;
 create table isoshells as 
 with hull as (
-  select st_concavehull(isochrone_geom,0.2) as geom
+  select link_id, st_concavehull(isochrone_geom,0.2) as geom
   from isochrones 
 ) 
-select row_number() over() as gid, geom as geom from hull 
+select link_id,num, hull.geom as geom from hull 
+inner join links 
+on link_id=fid
