@@ -14,13 +14,15 @@ detours:; psql -U $(PGUSER) -p $(PORT) -d $(DB) -v schema=$(SCHEMA) -f sql/detou
 
 walksheds:; psql -U $(PGUSER) -p $(PORT) -d $(DB) -v schema=$(SCHEMA) -f sql/walksheds.sql 
 
+fieldwork:; psql -U $(PGUSER) -p $(PORT) -d $(DB) -v schema=$(SCHEMA) -v field_csv=$(FIELDWORK) -f sql/fieldwork.sql 
+
 udrive:;
 	ogr2ogr -f GPKG $(UDRIVE_OUTPUT_GPKG) \
 		PG:"host=localhost user=$(PGUSER) dbname=$(DB) port=$(PORT)" \
 		-sql "select * from $(SCHEMA).isoshells" -nln iso_hulls
 	ogr2ogr -f GPKG -append $(UDRIVE_OUTPUT_GPKG) \
 		PG:"host=localhost user=$(PGUSER) dbname=$(DB) port=$(PORT)" \
-		-sql "select * from $(SCHEMA).links" -nln links
+		-sql "select * from $(SCHEMA).links_joined" -nln links_joined
 	ogr2ogr -f GPKG -append $(UDRIVE_OUTPUT_GPKG) \
 		PG:"host=localhost user=$(PGUSER) dbname=$(DB) port=$(PORT)" \
 		-sql "select * from $(SCHEMA).detours" -nln detours
@@ -31,6 +33,7 @@ all:;
 	make setup
 	make detours
 	make walksheds
+	make fieldwork
 	make udrive
 
 clean:; psql -U $(PGUSER) -p $(PORT) -d $(DB) -c "DROP SCHEMA IF EXISTS $(SCHEMA) CASCADE"
