@@ -17,10 +17,10 @@ You will need:
 
 Create a database called 'staircase' (or whatever you prefer).
 
-Create a .env file and fill in the following details. If you're on a Unix (Linux/Mac) system, keep the Geopackage paths.
+Create a .env file and fill in the following details. If you're on a Unix (Linux/Mac) system, keep all U drive files/paths.
 If you're on Windows, change the paths to Windows format (e.g., 'U:\This\is\a\Windows\Path' )  
 
-It's not recommended to use 'public' as your schema here. 
+It's not recommended to use 'public' as your schema in the .env. 
 
 ```
 DB=staircase
@@ -29,6 +29,7 @@ PORT=
 GEOPKG='/mnt/u/FY2025/MobilityAnalysisDesign/Ped_Bridges_Study/qgis/count_locations_reproj.gpkg'
 SCHEMA=
 UDRIVE_OUTPUT_GPKG='/mnt/u/FY2025/MobilityAnalysisDesign/Ped_Bridges_Study/project_output/outputs.gpkg'
+FIELDWORK='/mnt/u/FY2025/MobilityAnalysisDesign/Ped_Bridges_Study/project_input/field_work_data.csv'
 ```
 
 You need to be behind the DVRPC firewall to access project folders and run these scripts.
