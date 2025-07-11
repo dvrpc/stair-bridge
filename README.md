@@ -1,4 +1,4 @@
-# stair-bridge
+# Stair-bridge
 
 This is a project for the City of Philadelphia in DVRPC's 2025 Fiscal Year. 
 The purpose of the project is to count and analyze pedestrians on and around several bridges and staircases in the City.
@@ -41,11 +41,24 @@ Geopackage works in both QGIS and ArcPro.
 
 You can tweak variables if needed, for example, tweak 'WALKTIME' in sql/walksheds.sql to change walktime from 15-minutes to some other number.
 
-## Regression Analysis
-The 'ilil-r-files' folder contains Ilil's scripts for the regression analysis.
-The Makefile does not include these scripts, though it could if needed. 
+## Final calculation analysis
+- Get the relevant (requested) counts using [DVRPC count viewer](https://www.dvrpc.org/webmaps/trafficcounts/).
+- Use (run) the R file for the calculation
 
-The purpose of the regression analysis is to give the City estimates for pedestrian volumes at closed locations.
+## Steps for Creating Summary Tables with Weighted Counts per Bridge
+1. **Clean the Raw Count Data:**
+   - Remove data from **Columbus Day**.
+   - Filter the data to include only two 12-hour timeframes:
+     - **Daytime:** 7 AM to 7 PM  
+     - **Nighttime:** 7 PM to 7 AM (next day)
+2. **Calculate Distances:**
+   - For each location, determine the path-based distance to the start of the corresponding bridge.  
+   *(This step was performed manually using GIS software.)*
+3. **Compute Weighted Counts:**
+   - Iterate through each bridge and each hour within the defined timeframes.
+   - For each case, calculate the weighted count using the following formula: <br>*Sum of (count ÷ distance) divided by sum of (1 ÷ distance)*
+4. **Generate Summary Tables:**
+   - Use the weighted count table to compute summary statistics (**maximum** and **median**) for each bridge.
 
 ## License
 
