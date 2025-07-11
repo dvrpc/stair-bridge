@@ -45,7 +45,7 @@ You can tweak variables if needed, for example, tweak 'WALKTIME' in sql/walkshed
 - Get the relevant (requested) counts using [DVRPC count viewer](https://www.dvrpc.org/webmaps/trafficcounts/).
 - Use (run) the R file for the calculation
 
-## Steps for Creating Summary Tables with Weighted Counts per Bridge
+## Summary tables methodology
 1. **Clean the Raw Count Data:**
    - Remove data from **Columbus Day**.
    - Filter the data to include only two 12-hour timeframes:
