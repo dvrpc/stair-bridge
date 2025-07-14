@@ -1,4 +1,4 @@
-# stair-bridge
+# Stair-bridge
 
 This is a project for the City of Philadelphia in DVRPC's 2025 Fiscal Year. 
 The purpose of the project is to count and analyze pedestrians on and around several bridges and staircases in the City.
@@ -41,11 +41,29 @@ Geopackage works in both QGIS and ArcPro.
 
 You can tweak variables if needed, for example, tweak 'WALKTIME' in sql/walksheds.sql to change walktime from 15-minutes to some other number.
 
-## Regression Analysis
-The 'ilil-r-files' folder contains Ilil's scripts for the regression analysis.
-The Makefile does not include these scripts, though it could if needed. 
+## Weighted count analysis
 
-The purpose of the regression analysis is to give the City estimates for pedestrian volumes at closed locations.
+### Methodology
+1. **Clean the Raw Count Data:**
+   - Remove data from **Columbus Day**.
+   - Filter the data to include only two 12-hour timeframes:
+     - **Daytime:** 7 AM to 7 PM  
+     - **Nighttime:** 7 PM to 7 AM (next day)
+2. **Calculate Distances:**
+   - For each location, determine the path-based distance to the start of the corresponding bridge.  
+   *(This step was performed manually using GIS software.)*
+3. **Compute Weighted Counts:**
+   - Iterate through each bridge and each hour within the defined timeframes.
+   - For each case, calculate the weighted count using the following formula: <br>*Sum of (count ÷ distance) divided by sum of (1 ÷ distance)*
+4. **Generate Summary Tables:**
+   - Use the weighted count table to compute summary statistics (**maximum** and **median**) for each bridge.
+
+### Steps and files
+
+1. Download the relevant (requested) raw counts csv files using [DVRPC count viewer](https://www.dvrpc.org/webmaps/trafficcounts/).
+2. Run the  *preliminary_formatting.r* in the weighted_count_analysis folder to create the *long_data_all.csv* (output already stored in same folder).
+3. Run the *weighted-count-analysis.r* in the weighted_count_analysis folder to create the final output table. This code requires the *collection_point_id.csv* table that is stored in folder.
+*Note that in both R files location paths are missing and need to be manually updated.*
 
 ## License
 
