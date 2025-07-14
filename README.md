@@ -41,11 +41,9 @@ Geopackage works in both QGIS and ArcPro.
 
 You can tweak variables if needed, for example, tweak 'WALKTIME' in sql/walksheds.sql to change walktime from 15-minutes to some other number.
 
-## Final calculation analysis
-- Get the relevant (requested) counts using [DVRPC count viewer](https://www.dvrpc.org/webmaps/trafficcounts/).
-- Use (run) the R file for the calculation
+## Weighted count analysis
 
-## Summary tables methodology
+### Methodology
 1. **Clean the Raw Count Data:**
    - Remove data from **Columbus Day**.
    - Filter the data to include only two 12-hour timeframes:
@@ -59,6 +57,13 @@ You can tweak variables if needed, for example, tweak 'WALKTIME' in sql/walkshed
    - For each case, calculate the weighted count using the following formula: <br>*Sum of (count ÷ distance) divided by sum of (1 ÷ distance)*
 4. **Generate Summary Tables:**
    - Use the weighted count table to compute summary statistics (**maximum** and **median**) for each bridge.
+
+### Steps and files
+
+1. Download the relevant (requested) raw counts csv files using [DVRPC count viewer](https://www.dvrpc.org/webmaps/trafficcounts/).
+2. Run the  *preliminary_formatting.r* in the weighted_count_analysis folder to create the *long_data_all.csv* (output already stored in same folder).
+3. Run the *weighted-count-analysis.r* in the weighted_count_analysis folder to create the final output table. This code requires the *collection_point_id.csv* table that is stored in folder.
+*Note that in both R files location paths are missing and need to be manually updated.*
 
 ## License
 
